@@ -40,6 +40,26 @@ class MyModule extends Module
             return false;
         }
 
+        // Check if fiscal table exists
+        $checkForTableSql = 'SHOW TABLES LIKE "'._DB_PREFIX_.'fiscal"';
+
+        // Create table
+        $createTableSql = 'CREATE TABLE '._DB_PREFIX_.'fiscal (
+            id INT(6) UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+            invoice_id int(30) NOT NULL,
+            pk_id int(30) NOT NULL,
+            jir int(30) NOT NULL,
+            created_at TIMESTAMP
+            )';
+
+        $dbInstance = Db::getInstance();
+
+        $tables = $dbInstance->executeS($checkForTableSql);
+        if(0 === count($tables)) {
+            // Table doesn't exist
+            $dbInstance->execute($createTableSql);
+        }
+
         return true;
     }
 
@@ -51,6 +71,7 @@ class MyModule extends Module
             return false;
         }
 
+        // TODO: Remove table created on install
         return true;
     }
 

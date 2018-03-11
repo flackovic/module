@@ -86,8 +86,12 @@ class MyModule extends Module
          * TODO: Implement explicit check by id/name
          */
         if(!$params['newOrderStatus']->paid) {
+
+            var_dump($params);die;
             return;
         }
+
+        var_dump($params);die;
 
     }
 }
